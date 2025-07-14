@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chúc mừng sinh nhật hua hua 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --pink: #ffb6c1;
+      --deep-pink: #ff69b4;
+      --white: #fff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(to top right, #ffdde1, #ee9ca7);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header { text-align: center; padding: 3rem 1rem 1rem; }
+    header h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 3rem;
+      color: var(--white);
+      animation: fadeIn 2s ease-in;
+    }
+    nav {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    nav a {
+      margin: 0 1rem;
+      color: var(--white);
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+    nav a:hover { color: var(--deep-pink); }
+    .section { display: none; padding: 2rem; animation: fadeIn 1s ease-in; }
+    .section.active { display: block; }
+    .message-box, .gallery-box {
+      max-width: 700px;
+      margin: auto;
+      background-color: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(8px);
+      border-radius: 20px;
+      padding: 2rem;
+      text-align: center;
+    }
+    .message-box p, .gallery-box p {
+      font-size: 1.3rem;
+      line-height: 1.8;
+    }
+    .photo {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--white);
+      margin: 0 auto 1rem;
+    }
+    .btn-play {
+      background: var(--white);
+      color: var(--deep-pink);
+      font-weight: bold;
+      padding: 0.8rem 1.5rem;
+      border-radius: 25px;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 1rem;
+    }
+    .btn-play:hover {
+      background: var(--deep-pink);
+      color: var(--white);
+    }
+    .cute-img {
+      width: 150px;             /* hoặc 180 px tuỳ ý */
+      height: 150px;
+      object-fit: cover;
+      margin: 1rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+    @media (max-width: 768px) {
+      header h1 { font-size: 2rem; }
+      .message-box p, .gallery-box p { font-size: 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <header>
+    <h1>Chúc mừng sinh nhật hua hua 🎂</h1>
+    <nav>
+      <a href="#" onclick="showSection('home')">Trang chủ</a>
+      <a href="#" onclick="showSection('gallery')">Mew</a>
+      <a href="#" onclick="showSection('cat')">Loopy cute</a>
+    </nav>
+  </header>
+
+  <section id="home" class="section active">
+    <div class="container">
+      <img src="/static/avt.jpg" alt="Ảnh của em" class="photo">
+      <div class="message-box">
+        <p>
+          Mặc dù đã qua sinh nhật mất rồi nhưng vẫn cứ chúc vẫn cứ có quà he 💕<br>
+          Chúc babe tuổi mới thêm trưởng thành, xinh hơn, vâm hơn nhó<br>
+          Kiếm được nhìu tiền để trả lương cho anh đều hơn nhó! 💖<br>
+          Happy birthday to u! 💕
+        </p>
+        <button class="btn-play" onclick="playMusic()">Bật nhạc 🎵</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery" class="section">
+    <div class="gallery-box">
+      <p>Bực cả mèo nhưng nà loopy he 😍</p>
+      <img src="/static/lp1.jpg" alt="Loopy" class="cute-img">
+      <img src="/static/lp2.jpg" alt="Loopy" class="cute-img">
+    </div>
+  </section>
+
+  <section id="cat" class="section">
+    <div class="gallery-box">
+      <p>Đây mới là mèo nè :)</p>
+      <img src="/static/cat3.jpg" alt="Cat" class="cute-img">
+      <img src="/static/cat1.jpg" alt="Cat" class="cute-img">
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 – From mixi with love 💘
+  </footer>
+
+  <audio id="bgMusic" loop autoplay muted>
+    <source src="/static/music.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    function playMusic() {
+      const music = document.getElementById("bgMusic");
+      music.muted = false;
+      music.play();
+    }
+
+    function showSection(id) {
+      document.querySelectorAll('.section').forEach(section => {
+        section.classList.remove('active');
+      });
+      document.getElementById(id).classList.add('active');
+    }
+
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+    let W = window.innerWidth;
+    let H = window.innerHeight;
+    canvas.width = W;
+    canvas.height = H;
+
+    const bubbles = [];
+    for (let i = 0; i < 100; i++) {
+      bubbles.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        r: Math.random() * 5 + 2,
+        d: Math.random() * 100
+      });
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      ctx.fillStyle = "rgba(255,255,255,0.6)";
+      ctx.beginPath();
+      for (let i = 0; i < bubbles.length; i++) {
+        let b = bubbles[i];
+        ctx.moveTo(b.x, b.y);
+        ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+      }
+      ctx.fill();
+      update();
+    }
+
+    let angle = 0;
+    function update() {
+      angle += 0.01;
+      for (let i = 0; i < bubbles.length; i++) {
+        let b = bubbles[i];
+        b.y += Math.cos(angle + b.d) + 1 + b.r / 2;
+        b.x += Math.sin(angle) * 2;
+        if (b.x > W + 5 || b.x < -5 || b.y > H) {
+          if (i % 3 > 0) {
+            bubbles[i] = { x: Math.random() * W, y: -10, r: b.r, d: b.d };
+          } else {
+            bubbles[i] = {
+              x: Math.sin(angle) > 0 ? -5 : W + 5,
+              y: Math.random() * H,
+              r: b.r,
+              d: b.d
+            };
+          }
+        }
+      }
+    }
+    setInterval(draw, 33);
+  </script>
+</body>
+</html>
